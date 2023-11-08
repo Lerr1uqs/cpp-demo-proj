@@ -64,10 +64,10 @@ void TargetManager::scan_all_targets() {
     for(auto &target : self.targets) {
         auto future = std::async(std::launch::async, [&target, &addr2res]() {
 
-            lock_guard<mutex> lock(result_mutex);
             string report = target.test_all_ports()
                                   .generate_report();
 
+            lock_guard<mutex> lock(result_mutex);
             addr2res[target.get_ip()] = report;
         });
         futures.push_back(std::move(future));

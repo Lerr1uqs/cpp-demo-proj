@@ -126,12 +126,13 @@ fn Target::generate_report() -> string {
 
 
             struct hostent* host = gethostbyaddr(&addr, sizeof(addr), AF_INET);
+            const char *name = host ? host->h_name : "unknown";
             if(host == nullptr){
-                cerr << "err ip is " << self.ip << endl;
-                throw std::logic_error("Function not implemented");
+                // cerr << "err ip is " << self.ip << endl;
+                // throw std::logic_error("Function not implemented");
             }
 
-            ss << std::setw(25) << std::left << host->h_name
+            ss << std::setw(25) << std::left << name
                << std::setw(15) << std::left << self.ip
                << std::setw(10) << std::left << p
                << endl;
